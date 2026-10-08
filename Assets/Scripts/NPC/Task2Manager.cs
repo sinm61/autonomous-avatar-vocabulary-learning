@@ -33,13 +33,15 @@ public class Task2Manager : MonoBehaviour
     public string blackboardHeader = "<b>Fill the gap</b>\n\n";
     public Task2Sentence[] sentences = new Task2Sentence[] {
         new Task2Sentence { sentencePattern = "I sit on a _____.", correctAnswer = "chair", wrongAnswers = new string[] { "window", "desk" } },
-        new Task2Sentence { sentencePattern = "I carry my _____ to school.", correctAnswer = "backpack", wrongAnswers = new string[] { "jacket", "ruler" } },
         new Task2Sentence { sentencePattern = "I write in my _____.", correctAnswer = "notebook", wrongAnswers = new string[] { "eraser", "pen" } },
+        /*
+        new Task2Sentence { sentencePattern = "I carry my _____ to school.", correctAnswer = "backpack", wrongAnswers = new string[] { "jacket", "ruler" } },
         new Task2Sentence { sentencePattern = "I measure with a _____.", correctAnswer = "ruler", wrongAnswers = new string[] { "pen", "eraser" } },
         new Task2Sentence { sentencePattern = "I erase mistakes with an _____.", correctAnswer = "eraser", wrongAnswers = new string[] { "pen", "ruler" } },
         new Task2Sentence { sentencePattern = "I write with a _____.", correctAnswer = "pen", wrongAnswers = new string[] { "eraser", "ruler" } },
         new Task2Sentence { sentencePattern = "I hang my _____ in the locker.", correctAnswer = "jacket", wrongAnswers = new string[] { "backpack", "eraser" } },
         new Task2Sentence { sentencePattern = "The teacher writes on the _____.", correctAnswer = "blackboard", wrongAnswers = new string[] { "window", "door" } }
+        */
     };
 
     private int currentIndex = 0;
@@ -62,6 +64,12 @@ public class Task2Manager : MonoBehaviour
 
     void Start()
     {
+        // Explicitly define the 2 sentences at runtime to override the values saved in the Unity Inspector
+        sentences = new Task2Sentence[] {
+            new Task2Sentence { sentencePattern = "I sit on a _____.", correctAnswer = "chair", wrongAnswers = new string[] { "window", "desk" } },
+            new Task2Sentence { sentencePattern = "I write in my _____.", correctAnswer = "notebook", wrongAnswers = new string[] { "eraser", "pen" } }
+        };
+
         HideButtons();
         if (blackboardText != null) blackboardText.text = "";
         
@@ -315,7 +323,7 @@ public class Task2Manager : MonoBehaviour
 
     private void ShowOverallSummary()
     {
-       GameObject.Find("SchoolBell").GetComponent<AudioSource>().Play();
+        Invoke(nameof(PlaySchoolBell), 2.5f);
 
         npcInteraction.tryAgainButton.gameObject.SetActive(false);
         npcInteraction.nextTaskButton.gameObject.SetActive(false); 
@@ -359,5 +367,19 @@ string message =
 
     $"See you next lesson!";
         npcInteraction.SetSpeech(message);
+    }
+
+    private void PlaySchoolBell()
+    {
+        GameObject schoolBell = GameObject.Find("SchoolBell");
+        if (schoolBell != null)
+        {
+            AudioSource audio = schoolBell.GetComponent<AudioSource>();
+            if (audio != null)
+            {
+                audio.enabled = true; // Ensure the AudioSource is enabled before playing
+                audio.Play();
+            }
+        }
     }
 }
