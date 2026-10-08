@@ -35,6 +35,7 @@ public class NPCInteraction : MonoBehaviour
     private (string tag, string example, string hint)[] tasks = {
         ("Chair", "I sit on a chair.", "Look near the desks in the classroom."),
         ("Backpack", "I carry my backpack to school.", "Look for a school bag in the classroom."),
+        /*
         ("Notepad", "I write in my notebook.", "Look on a desk for something used for writing."),
         ("Ruler", "I measure with a ruler.", "Look on a desk for a long school object."),
         ("Eraser", "I erase mistakes with an eraser.", "Look on a desk for something to correct mistakes."),
@@ -44,6 +45,7 @@ public class NPCInteraction : MonoBehaviour
         ("Blackboard", "The teacher writes on the blackboard.", "Look at the front of the classroom."),
         ("Bookshelf", "There are many books on the bookshelf.", "Look for a shelf with books."),
          ("Jacket", "I hang my jacket in the locker.", "Click Help if you need to see the correct locker.")
+        */
     };
 
     private int currentTaskIndex = 0;
